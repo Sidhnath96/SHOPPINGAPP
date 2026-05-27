@@ -1,0 +1,17 @@
+{
+    "userName": "RobStark",
+    "email": "robstark@gmail.com",
+    "password": "WinterIsComing",
+    "BirthDate":{ "Day":"25",
+        "Month":"December",
+        "Year":"1990" },
+    "firstName": "Rob",
+    "lastName": "Stark",
+    "company": "Winterfell Inc.",
+    "address": "Winterfell Castle",
+    "country": "New Zealand", 
+    "state": "North",
+    "city": "Winterfell",
+    "postalCode": "12345",
+    "mobilePhone": "1234567890" 
+}
