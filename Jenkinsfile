@@ -27,13 +27,13 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm ci'
+                bat 'npm ci'
             }
         }
 
         stage('Install Playwright Browsers') {
             steps {
-                sh 'npx playwright install --with-deps'
+                bat 'npx playwright install --with-deps'
             }
         }
 
@@ -42,10 +42,10 @@ pipeline {
                 script {
                     if (params.TEST_GROUP == 'all') {
                         // Shortcut for standard execution
-                        sh 'npm run test || true'
+                        bat 'npm run test || true'
                     } else {
                         // Appends the parameter tag dynamically to the test:stage script
-                        sh "npm run test:stage -- ${params.TEST_GROUP} || true"
+                        bat "npm run test:stage -- ${params.TEST_GROUP} || true"
                     }
                 }
             }
