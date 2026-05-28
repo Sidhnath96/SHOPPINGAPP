@@ -40,12 +40,12 @@ pipeline {
         stage('Run Playwright Tests') {
             steps {
                 script {
-                    // 2. Logic to handle whether to run a specific group or everything
                     if (params.TEST_GROUP == 'all') {
-                        sh 'npx playwright test || true'
+                        // Shortcut for standard execution
+                        sh 'npm run test || true'
                     } else {
-                        // Grep flag filters and runs only tests matching the chosen tag
-                        sh "npx playwright test --grep ${params.TEST_GROUP} || true"
+                        // Appends the parameter tag dynamically to the test:stage script
+                        sh "npm run test:stage -- ${params.TEST_GROUP} || true"
                     }
                 }
             }
