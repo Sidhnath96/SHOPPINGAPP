@@ -28,6 +28,9 @@ export default class SignUpAndLoginPage {
   createAccountButton: Locator;
   continueButton: Locator;
   logoutlink: Locator;
+  newsletterCheckbox: Locator;
+  specialOffersCheckbox: Locator;
+  loggedInUserName: Locator;
 
   // 2. Type the incoming constructor argument as Page
   constructor(page: Page) {
@@ -47,6 +50,10 @@ export default class SignUpAndLoginPage {
     this.monthOfBirthSelect = page.locator('select[id="months"]');
     this.yearOfBirthSelect = page.locator('select[id="years"]');
 
+    // checkboxes for newsletter and special offers
+    this.newsletterCheckbox = page.getByLabel('Sign up for our newsletter!');
+    this.specialOffersCheckbox = page.getByLabel('Receive special offers from our partners!');
+
     // Address details locators
     this.firstNameInput = page.locator('input[id="first_name"]');
     this.lastNameInput = page.locator('input[id="last_name"]'); 
@@ -61,6 +68,9 @@ export default class SignUpAndLoginPage {
 
     //continue button locator after successful registration
     this.continueButton = page.locator('[data-qa="continue-button"]');
+
+    //logged in user name locator
+    this.loggedInUserName = page.locator("//a[contains(text(),' Logged in as ')]/b"); 
 
     // locators for login
     this.loginEmailInput = page.locator('input[data-qa="login-email"]');
@@ -84,16 +94,20 @@ export default class SignUpAndLoginPage {
   }
 
   //start filling registration details
-  async doRegistration(title: 'Mr', password: string, dayOfBirth: string, monthOfBirth: string, yearOfBirth: string, fname: string, lname: string, company: string, address: string, country: string, state: string, city: string, zipcode: string, mobileNumber: string) {
-    if (title === 'Mr') {
-      await this.titleMrRadio.check();
-    } else {
-      await this.titleMrsRadio.check();
-    }
+  async doRegistration(password: string, dayOfBirth: string, monthOfBirth: string, yearOfBirth: string, fname: string, lname: string, company: string, address: string, country: string, state: string, city: string, zipcode: string, mobileNumber: string) {
+    // if (title === 'Mr') {
+    //   await this.titleMrRadio.check();
+    // } else {
+    //   await this.titleMrsRadio.check();
+    // }
+    await this.titleMrRadio.check(); // default to Mr for simplicity
     await this.passwordInput.fill(password);
     await this.dayOfBirthSelect.selectOption(dayOfBirth);
     await this.monthOfBirthSelect.selectOption(monthOfBirth);
     await this.yearOfBirthSelect.selectOption(yearOfBirth);
+
+    await this.newsletterCheckbox.check();
+    await this.specialOffersCheckbox.check();
 
     //fill address details
     await this.firstNameInput.fill(fname);
@@ -117,5 +131,10 @@ export default class SignUpAndLoginPage {
   async clickLogoutLink() {
     await this.logoutlink.click();
   }
+
+  //logged in user name
+  async getLoggedInUserName() {
+    return await this.loggedInUserName.textContent();
+  } 
 
 }

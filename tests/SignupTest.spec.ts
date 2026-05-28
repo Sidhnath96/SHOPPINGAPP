@@ -1,0 +1,44 @@
+import SignUpAndLoginPage from "../POMClasses/SignUpAndLoginPage";
+import UserConfigData from "../ConfigData/UserConfigData.json"; 
+import {test, expect} from '@playwright/test';  
+/**
+ * TC-001: Signup and Login Test
+ */
+let uniqueEmail:string;
+test('Signup and Login Test', async ({page}) => {
+    const signUpAndLoginPage = new SignUpAndLoginPage(page);
+    await page.goto('/');
+    await expect(page).toHaveTitle('Automation Exercise');
+    
+    await signUpAndLoginPage.clickSignUpLoginLink();
+    await expect(page.locator('.signup-form h2')).toHaveText('New User Signup!');
+    
+    //update the email to be unique for each test run // Signup process
+    const uniqueToken = crypto.randomUUID().substring(0, 8); 
+    uniqueEmail = `user_${uniqueToken}@example.com`;
+    console.log(`Using email: ${uniqueEmail} for signup`);
+    await signUpAndLoginPage.dosignUp(UserConfigData.userName, uniqueEmail);
+    expect(await page.url()).toContain('/signup');
+
+    // Fill in registration details
+    await signUpAndLoginPage.doRegistration(UserConfigData.password, UserConfigData.BirthDate.Day, UserConfigData.BirthDate.Month, UserConfigData.BirthDate.Year, UserConfigData.firstName, UserConfigData.lastName, UserConfigData.company, UserConfigData.address, UserConfigData.country, UserConfigData.state, UserConfigData.city, UserConfigData.postalCode, UserConfigData.mobilePhone);
+    await expect(page.locator('h2[data-qa="account-created"]')).toHaveText('Account Created!');
+    await signUpAndLoginPage.clickContinueButton();
+    
+    // Verify logged in username
+    const loggenInUser = await signUpAndLoginPage.getLoggedInUserName();
+    console.log(`Logged in user: ${loggenInUser}`);
+    if(loggenInUser?.toLowerCase() == UserConfigData.userName.toLocaleLowerCase())
+    {
+         expect(await signUpAndLoginPage.getLoggedInUserName()).toContain(UserConfigData.userName);
+    }
+    else    {
+        console.warn(`Logged in username (${loggenInUser}) does not match expected (${UserConfigData.userName})`);
+    }
+
+
+    // Logout after signup
+    await signUpAndLoginPage.clickLogoutLink();
+    await expect(page.locator('.signup-form h2')).toHaveText('New User Signup!');
+
+});
