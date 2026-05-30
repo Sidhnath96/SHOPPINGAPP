@@ -1,5 +1,6 @@
 import SignUpAndLoginPage from "../POMClasses/SignUpAndLoginPage";
 import UserConfigData from "../ConfigData/UserConfigData.json"; 
+import {EmailGenerator} from "../Utility/EmailGenerator";
 import {test, expect} from '@playwright/test';  
 /**
  * TC-001: Signup and Login Test
@@ -7,6 +8,7 @@ import {test, expect} from '@playwright/test';
 let uniqueEmail:string;
 test('Signup and Login Test', async ({page}) => {
     const signUpAndLoginPage = new SignUpAndLoginPage(page);
+    const emailGenerator = new EmailGenerator();
     await page.goto('/');
     await expect(page).toHaveTitle('Automation Exercise');
     
@@ -14,10 +16,11 @@ test('Signup and Login Test', async ({page}) => {
     await expect(page.locator('.signup-form h2')).toHaveText('New User Signup!');
     
     //update the email to be unique for each test run // Signup process
-    const uniqueToken = crypto.randomUUID().substring(0, 8); 
-    uniqueEmail = `user_${uniqueToken}@example.com`;
-    console.log(`Using email: ${uniqueEmail} for signup`);
-    await signUpAndLoginPage.dosignUp(UserConfigData.userName, uniqueEmail);
+    // const uniqueToken = crypto.randomUUID().substring(0, 8); 
+    // uniqueEmail = `user_${uniqueToken}@example.com`;
+    emailGenerator.generateEmail();
+    console.log(`Using email: ${emailGenerator.useremail} for signup`);
+    await signUpAndLoginPage.dosignUp(UserConfigData.userName, emailGenerator.useremail);
     expect(await page.url()).toContain('/signup');
 
     // Fill in registration details
