@@ -1,5 +1,6 @@
 import SignUpAndLoginPage from "../POMClasses/SignUpAndLoginPage";
 import UserConfigData from "../ConfigData/UserConfigData.json"; 
+import {EmailGenerator} from "../Utility/EmailGenerator";
 import {test, expect} from '@playwright/test';  
 /**
  * TC-001: Signup and Login Test
@@ -9,6 +10,7 @@ test.describe('Signup and Login Tests', () => {
 
     test('Signup and Login Test', async ({page}) => {
     const signUpAndLoginPage = new SignUpAndLoginPage(page);
+    const emailGenerator = new EmailGenerator();
     await page.goto('/');
     await expect(page).toHaveTitle('Automation Exercise');
     
