@@ -137,4 +137,9 @@ export default class SignUpAndLoginPage {
     return await this.loggedInUserName.textContent();
   } 
 
+  async doLogin(email: string, password: string) {
+    await this.loginEmailInput.fill(email);
+    await this.loginPasswordInput.fill(password);
+    await this.loginButton.click();
+  } 
 }
