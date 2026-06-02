@@ -18,7 +18,7 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   timeout: 60000,
-  workers: 2, // Run tests sequentially to manage dependencies between registration and login tests
+  workers: 3, // Run tests sequentially to manage dependencies between registration and login tests
   
   use: {
     headless: false,
@@ -34,6 +34,7 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      testIgnore: ['SignupTest.spec.ts', 'LoginTest.spec.ts'], // skip the below dependant tests in the main browser to manage dependencies between registration and login tests
     },
 
     // {

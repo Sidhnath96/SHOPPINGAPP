@@ -17,9 +17,11 @@ test('Contact Us Form Submission Test', async ({page}) => {
     });
 
     await contactUsPage.fillContactUsForm(UserConfigData.firstName, UserConfigData.email, 'Test Subject', 'This is a test message for the contact us form.');
-    // const successMessage = await contactUsPage.verifySuccessMessage();
+    
     // console.log('Success Message:', successMessage);
+    await page.waitForTimeout(5000); // Wait for the success message to appear after form submission
     await contactUsPage.submitContactUsForm();
+    
     //Assert directly on the locator to utilize Playwright's auto-waiting
    await expect(contactUsPage.successMessage).toContainText('Success! Your details have been submitted successfully.');
 
