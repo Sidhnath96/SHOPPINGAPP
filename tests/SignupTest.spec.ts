@@ -1,6 +1,5 @@
 import SignUpAndLoginPage from "../POMClasses/SignUpAndLoginPage";
 import UserConfigData from "../ConfigData/UserConfigData.json"; 
-import {EmailGenerator} from "../Utility/EmailGenerator";
 import {test, expect} from '@playwright/test';  
 /**
  * TC-001: Signup and Login Test
@@ -10,7 +9,7 @@ test.describe('Signup and Login Tests', () => {
 
     test('Signup and Login Test', async ({page}) => {
     const signUpAndLoginPage = new SignUpAndLoginPage(page);
-    const emailGenerator = new EmailGenerator();
+   
     await page.goto('/');
     await expect(page).toHaveTitle('Automation Exercise');
     
@@ -52,8 +51,10 @@ test.describe('Signup and Login Tests', () => {
         await expect(page).toHaveTitle('Automation Exercise'); 
         await signUpAndLoginPage.clickSignUpLoginLink();
         await expect(page.locator('.login-form h2')).toHaveText('Login to your account');
+        // Use the email registered in the previous test to perform login
         await signUpAndLoginPage.doLogin(registeredEmail, UserConfigData.password);
 
+        // Verify logged in username
         const loggenInUser = await signUpAndLoginPage.getLoggedInUserName();
         console.log(`Logged in user: ${loggenInUser}`);
         if(loggenInUser?.toLowerCase() == UserConfigData.userName.toLocaleLowerCase())
@@ -62,6 +63,7 @@ test.describe('Signup and Login Tests', () => {
         } else    {
             console.warn(`Logged in username (${loggenInUser}) does not match expected (${UserConfigData.userName})`);
         }
+        // Logout after login
         await signUpAndLoginPage.clickLogoutLink();
         await expect(page.locator('.signup-form h2')).toHaveText('New User Signup!');
     });
