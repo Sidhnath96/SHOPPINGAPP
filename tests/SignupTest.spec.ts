@@ -1,6 +1,6 @@
 import SignUpAndLoginPage from "../POMClasses/SignUpAndLoginPage";
 import UserConfigData from "../ConfigData/UserConfigData.json"; 
-import {test, expect} from '@playwright/test';  
+import{test, expect} from '../tests/fixtures';  
 /**
  * TC-001: Signup and Login Test
  */

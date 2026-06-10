@@ -14,19 +14,21 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
-  fullyParallel: false,
+  fullyParallel: true,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   timeout: 60000,
-  workers: 3, // Run tests sequentially to manage dependencies between registration and login tests
+  // workers: 3, // Run tests sequentially to manage dependencies between registration and login tests
+  
   
   use: {
-    headless: false,
+    headless: true,
     /* Base URL to use in actions like `await page.goto('')`. */
     baseURL: 'https://automationexercise.com',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'on',
+    screenshot: 'only-on-failure',
   },
 
   /* Configure projects for major browsers */
