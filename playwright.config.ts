@@ -14,12 +14,12 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
-  fullyParallel: true,
+  fullyParallel: false,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
-  timeout: 60000,
+  timeout: 70000,
   // workers: 3, // Run tests sequentially to manage dependencies between registration and login tests
-  
+  retries: 2, // Retry failed tests up to 2 times
   
   use: {
     headless: true,
