@@ -18,7 +18,8 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   timeout: 60000,
-  workers: 3, // Run tests sequentially to manage dependencies between registration and login tests
+  // workers: 3, // Run tests sequentially to manage dependencies between registration and login tests
+  
   
   use: {
     headless: true,
@@ -27,6 +28,7 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
+    screenshot: 'only-on-failure',
   },
 
   /* Configure projects for major browsers */
