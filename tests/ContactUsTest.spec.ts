@@ -1,6 +1,6 @@
 import UserConfigData from "../ConfigData/UserConfigData.json";
 import ContactUs from "../POMClasses/ContactUsPage";
-import {test, expect} from '@playwright/test';
+import{test, expect} from '../tests/fixtures';
 
 test('Contact Us Form Submission Test', async ({page}) => {
     const contactUsPage = new ContactUs(page);
