@@ -1,4 +1,5 @@
-import {expect, test} from '../tests/fixtures';
+
+import{test, expect} from '../tests/fixtures';
 import TestCasePage from '../POMClasses/TestCasePage';
 
 test('Verify test case page visibility and test cases count', async ({page}) => {
