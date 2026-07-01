@@ -12,7 +12,8 @@ export const test = base.extend({
     await page.route('**/*google*/**', route => route.abort());
     await page.route('**/*googlesyndication*/**', route => route.abort());
     await page.route('**/*doubleclick*/**', route => route.abort());
-
+    await page.route('**/*adservice*/**', route => route.abort());
+    await page.route('**/*sodar*', route => route.abort());
     // 2. Hand over the modified page to the actual test
     await use(page);
   },

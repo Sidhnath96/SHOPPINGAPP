@@ -36,8 +36,18 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-      testIgnore: ['SignupTest.spec.ts', 'LoginTest.spec.ts'], // skip the below dependant tests in the main browser to manage dependencies between registration and login tests
+      // skip the below dependant tests in the main browser to manage dependencies between registration and login tests
+      testIgnore: ['SignupTest.spec.ts', 'LoginTest.spec.ts'], 
     },
+    {
+      name:'registration',
+      testMatch: 'SignupTest.spec.ts',
+    },
+    {
+      name:'login',
+      testMatch: 'LoginTest.spec.ts',
+      dependencies: ['registration'], // Ensure login tests run after registration tests
+    }
 
     // {
     //   name: 'firefox',
@@ -69,15 +79,7 @@ export default defineConfig({
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     // },
     //dependency management to ensure login tests run after registration tests
-    {
-      name:'registration',
-      testMatch: 'SignupTest.spec.ts',
-    },
-    {
-      name:'login',
-      testMatch: 'LoginTest.spec.ts',
-      dependencies: ['registration'], // Ensure login tests run after registration tests
-    }
+    
   ],
 
   /* Run your local dev server before starting the tests */
