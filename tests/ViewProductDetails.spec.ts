@@ -15,10 +15,4 @@ test('View Product Details',async({page}) => {
     expect(await productDetailsPage.checkProductAvailability()).toContain('Availability: In Stock');
     expect(await productDetailsPage.checkProductCondition()).toContain('Condition: New');
     expect(await productDetailsPage.checkProductBrand()).toContain('Brand: Polo');
-
-    //for verification purpose only
-    // console.log(await productDetailsPage.checkProductPrice());
-    // console.log(await productDetailsPage.checkProductAvailability());
-    // console.log(await productDetailsPage.checkProductCondition());
-    // console.log(await productDetailsPage.checkProductBrand());
 })

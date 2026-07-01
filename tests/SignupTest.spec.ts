@@ -12,14 +12,11 @@ test.describe('Signup and Login Tests', () => {
    
     await page.goto('/');
     await expect(page).toHaveTitle('Automation Exercise');
-    
     await signUpAndLoginPage.clickSignUpLoginLink();
     await expect(page.locator('.signup-form h2')).toHaveText('New User Signup!');
-    
     //update the email to be unique for each test run // Signup process
     const uniqueToken = crypto.randomUUID().substring(0, 8); 
     registeredEmail = `user_${uniqueToken}@example.com`;
-    console.log(`Using email: ${registeredEmail} for signup`);
     await signUpAndLoginPage.dosignUp(UserConfigData.userName, registeredEmail);
     expect(await page.url()).toContain('/signup');
 
@@ -30,19 +27,13 @@ test.describe('Signup and Login Tests', () => {
     
     // Verify logged in username
     const loggenInUser = await signUpAndLoginPage.getLoggedInUserName();
-    console.log(`Logged in user: ${loggenInUser}`);
     if(loggenInUser?.toLowerCase() == UserConfigData.userName.toLocaleLowerCase())
     {
          expect(await signUpAndLoginPage.getLoggedInUserName()).toContain(UserConfigData.userName);
     }
-    else    {
-        console.warn(`Logged in username (${loggenInUser}) does not match expected (${UserConfigData.userName})`);
-    }
-    
     // Logout after signup
     await signUpAndLoginPage.clickLogoutLink();
     await expect(page.locator('.signup-form h2')).toHaveText('New User Signup!');
-
     });
 
     test('Login with Registered User', async ({page}) => {
@@ -53,15 +44,11 @@ test.describe('Signup and Login Tests', () => {
         await expect(page.locator('.login-form h2')).toHaveText('Login to your account');
         // Use the email registered in the previous test to perform login
         await signUpAndLoginPage.doLogin(registeredEmail, UserConfigData.password);
-
         // Verify logged in username
         const loggenInUser = await signUpAndLoginPage.getLoggedInUserName();
-        console.log(`Logged in user: ${loggenInUser}`);
         if(loggenInUser?.toLowerCase() == UserConfigData.userName.toLocaleLowerCase())
         {
              expect(await signUpAndLoginPage.getLoggedInUserName()).toContain(UserConfigData.userName);
-        } else    {
-            console.warn(`Logged in username (${loggenInUser}) does not match expected (${UserConfigData.userName})`);
         }
         // Logout after login
         await signUpAndLoginPage.clickLogoutLink();

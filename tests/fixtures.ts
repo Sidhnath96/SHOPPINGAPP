@@ -1,5 +1,9 @@
 import { test as base } from '@playwright/test';
-
+/**
+ * This file is a test fixture that extends the base Playwright test configuration.
+ * It intercepts network requests to known ad networks and aborts them to prevent ads from interfering with tests.
+ * You can add more routes to block additional ad networks as needed.
+ */
 // Extend the base test configuration
 export const test = base.extend({
   // Override the default page fixture
