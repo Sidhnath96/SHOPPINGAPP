@@ -3,7 +3,6 @@ import { Page, Locator } from '@playwright/test';
 export default class ContactUsPage {
 
     page:Page;
-    contatcusLink:Locator;
     nameInput:Locator;
     emailInput:Locator;
     subjectInput:Locator;
@@ -17,7 +16,6 @@ export default class ContactUsPage {
 
         // locators from contact us page
         this.page = page;
-        this.contatcusLink = page.getByRole('link', { name: ' Contact us' });
         this.nameInput = page.locator('[data-qa="name"]');
         this.emailInput = page.locator('[name="email"]');
         this.subjectInput = page.locator('[data-qa="subject"]');
@@ -30,10 +28,7 @@ export default class ContactUsPage {
         //file upload/attachement scenario is not yet automated in this file
 
     }
-
-    async clickContactUsLink() {
-        await this.contatcusLink.click();
-    }      
+    
     async fillContactUsForm(name:string, email:string, subject:string, message:string) {
         await this.nameInput.fill(name);
         await this.emailInput.fill(email);
@@ -46,10 +41,10 @@ export default class ContactUsPage {
          */
     }
     async submitContactUsForm() {
-        await this.submitButton.click();
+        await this.submitButton.click({force:true});
     }
-//     async verifySuccessMessage() {
-//         return await this.successMessage.textContent();
-//     }
+    async verifySuccessMessage() {
+        return await this.successMessage.textContent();
+    }
  }
 
