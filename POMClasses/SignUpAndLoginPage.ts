@@ -31,6 +31,7 @@ export default class SignUpAndLoginPage {
   newsletterCheckbox: Locator;
   specialOffersCheckbox: Locator;
   loggedInUserName: Locator;
+  accountCreatedMessage: Locator;
 
   // 2. Type the incoming constructor argument as Page
   constructor(page: Page) {
@@ -65,6 +66,7 @@ export default class SignUpAndLoginPage {
     this.zipcodeInput = page.locator('input[id="zipcode"]');
     this.mobileNumberInput = page.locator('input[id="mobile_number"]');
     this.createAccountButton = page.getByRole('button', { name: 'Create Account' });
+    this.accountCreatedMessage = page.locator('h2[data-qa="account-created"]');
 
     //continue button locator after successful registration
     this.continueButton = page.locator('[data-qa="continue-button"]');
@@ -136,12 +138,19 @@ export default class SignUpAndLoginPage {
   async getLoggedInUserName() {
     return await this.loggedInUserName.textContent();
   } 
+  //get account created message
+  async getAccountCreatedMessage() {
+    return await this.accountCreatedMessage.textContent();
+  }
 
   //login with existing user
   async doLogin(email: string, password: string) {
+    await this.clickSignUpLoginLink();
+    // Wait for the login email input to be visible before filling
+    await this.loginEmailInput.waitFor({ state: 'visible' });
     await this.loginEmailInput.fill(email);
     await this.loginPasswordInput.fill(password);
     await this.loginButton.click();
-  }
+}
 
 }
