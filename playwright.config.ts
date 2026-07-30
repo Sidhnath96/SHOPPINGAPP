@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import test, { defineConfig, devices } from '@playwright/test';
 
 /**
  * Read environment variables from file.
@@ -36,6 +36,7 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+    
     },
 
     // {

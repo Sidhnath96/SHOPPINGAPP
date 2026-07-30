@@ -20,9 +20,10 @@ test('Contact Us Form Submission Test', async ({page}) => {
         page.waitForEvent('dialog').then(async(dialog) => {
             expect(dialog.message()).toBe('Press OK to proceed!');
             await dialog.accept(); // Simulates clicking "OK"
-        }), contactUsPage.submitContactUsForm(), 
+        }),
+        contactUsPage.clicksubmitContactUsForm()
     ]);
     //Assert directly on the locator to utilize Playwright's auto-waiting
-    expect(await contactUsPage.verifySuccessMessage(),"Successfully submitted contact form").toBe('Success! Your details have been submitted successfully.');
+    expect(await contactUsPage.SuccessMessage(),"Successfully submitted contact form").toBe('Success! Your details have been submitted successfully.');
 
 });

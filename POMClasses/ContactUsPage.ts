@@ -40,10 +40,10 @@ export default class ContactUsPage {
          * Use popupHandle class to handle the pop-up and accept it, then verify the success message on the page.
          */
     }
-    async submitContactUsForm() {
+    async clicksubmitContactUsForm() {
         await this.submitButton.click({force:true});
     }
-    async verifySuccessMessage() {
+    async SuccessMessage() {
         return await this.successMessage.textContent();
     }
  }

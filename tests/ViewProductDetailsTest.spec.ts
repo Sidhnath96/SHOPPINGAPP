@@ -1,4 +1,4 @@
-import{test, expect} from '../tests/fixtures';
+import{test, expect} from './fixtures';
 import ProductsPage  from '../POMClasses/ProductsPage';
 import ProductDetailsPage from '../POMClasses/ProductDetailsPage';
 import HomePage from '../POMClasses/HomePage';
