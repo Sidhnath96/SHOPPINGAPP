@@ -47,7 +47,8 @@ export default class ContactUsPage {
 
     }
     async SuccessMessage() {
-        return this.successMessage.textContent({timeout:3000});
+        //returning locator instead of text to utilize Playwright's auto-waiting feature for the element to be visible and contain the expected text
+        return this.successMessage;
     }
  }
 

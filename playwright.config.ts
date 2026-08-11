@@ -16,7 +16,23 @@ export default defineConfig({
   /* Run tests in files in parallel */
   fullyParallel: false,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  /**
+   * reporter: [
+    ['html', {
+      title: 'Shopping App - Automation Test Report',
+      outputFolder: 'playwright-report',
+      open: 'on-failure',           // 'always' | 'never' | 'on-failure'
+      host: 'localhost',
+      port: 9323,
+      noCopyPrompt: false,
+      noSnippets: false,
+      doNotInlineAssets: false,
+      mergeFiles: false,
+    }],
+  ]
+   * 
+   */
+  reporter: [['allure-playwright', { outputFolder: 'allure-results' }]],
   timeout: 30000,
   // workers: 3, // Run tests sequentially to manage dependencies between registration and login tests
   retries: 2, // Retry failed tests up to 2 times
