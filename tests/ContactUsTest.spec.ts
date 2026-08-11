@@ -29,6 +29,6 @@ test('Contact Us Form Submission Test', async ({page}) => {
     await contactUsPage.clicksubmitContactUsForm();
     
     //Assert directly on the locator to utilize Playwright's auto-waiting
-    expect(await contactUsPage.SuccessMessage(),"failed to get the text").toBe('Success! Your details have been submitted successfully.');
+    await expect(await contactUsPage.SuccessMessage(),"Need more time to load the message").toHaveText('Success! Your details have been submitted successfully.');
 
 });
