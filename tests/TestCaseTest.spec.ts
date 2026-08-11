@@ -1,4 +1,5 @@
-import {expect, test} from '../tests/fixtures';
+
+import{test, expect} from '../tests/fixtures';
 import TestCasePage from '../POMClasses/TestCasePage';
 import HomePage from '../POMClasses/HomePage';
 
