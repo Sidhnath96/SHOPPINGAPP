@@ -32,8 +32,8 @@ test('End-to-End Single Product Purchase Flow', async ({page}) => {
         // search product
         await productsPage.searchProductByName(productToSearch);
         //verify that searched product is displayed
-        const productName = await productsPage.productNameOnProductsPage.first().textContent();
-        expect(productName).toBe(productToSearch);
+        // const productName = await productsPage.productNameOnProductsPage.first().textContent();
+        await expect(productsPage.productNameOnProductsPage.first()).toHaveText(productToSearch);
         //add product to cart based on product name
         await productsPage.addProductToCart(productToSearch);
         await expect(productsPage.cartbtnOnModal).toBeVisible();
