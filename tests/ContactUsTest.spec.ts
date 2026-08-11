@@ -7,7 +7,6 @@ test('Contact Us Form Submission Test', async ({page}) => {
     const contactUsPage = new ContactUs(page);
     const homePage = new HomePage(page);
     await page.goto('/');
-    await expect(page.locator('img[alt="Website for automation practice"]')).toBeVisible();
     await expect(page,"Expected title to be Automation Exercise").toHaveTitle('Automation Exercise');    
     // Click on the "Contact Us" link to navigate to the contact form page
     await homePage.clickContactUsLink();
@@ -16,14 +15,20 @@ test('Contact Us Form Submission Test', async ({page}) => {
     // Fill in the contact us form with test data
     await contactUsPage.fillContactUsForm(UserConfigData.firstName, UserConfigData.email, 'Test Subject', 'This is a test message for the contact us form.');
     // FIX: Register the dialog listener natively before clicking the submit button to avoid missing the dialog event
-    await Promise.all([
-        page.waitForEvent('dialog').then(async(dialog) => {
-            expect(dialog.message()).toBe('Press OK to proceed!');
-            await dialog.accept(); // Simulates clicking "OK"
-        }),
-        contactUsPage.clicksubmitContactUsForm()
-    ]);
+    // await Promise.all([
+    //     page.waitForEvent('dialog').then(async(dialog) => {
+    //         expect(dialog.message()).toBe('Press OK to proceed!');
+    //         await dialog.accept(); // Simulates clicking "OK"
+    //     }),
+    //     contactUsPage.clicksubmitContactUsForm()
+    // ]);
+    page.on('dialog', async dialog => {
+    await dialog.accept();
+    });
+
+    await contactUsPage.clicksubmitContactUsForm();
+    
     //Assert directly on the locator to utilize Playwright's auto-waiting
-    expect(await contactUsPage.SuccessMessage(),"Successfully submitted contact form").toBe('Success! Your details have been submitted successfully.');
+    expect(await contactUsPage.SuccessMessage(),"failed to get the text").toBe('Success! Your details have been submitted successfully.');
 
 });

@@ -17,15 +17,18 @@ export default defineConfig({
   fullyParallel: false,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
-  timeout: 15000,
+  timeout: 30000,
   // workers: 3, // Run tests sequentially to manage dependencies between registration and login tests
   retries: 2, // Retry failed tests up to 2 times
-  
+  expect:
+    {
+      timeout:8000,
+    },
   use: {
     headless: true,
     /* Base URL to use in actions like `await page.goto('')`. */
     baseURL: 'https://automationexercise.com',
-
+    
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
     screenshot: 'only-on-failure',

@@ -20,7 +20,7 @@ export default class ContactUsPage {
         this.emailInput = page.locator('[name="email"]');
         this.subjectInput = page.locator('[data-qa="subject"]');
         this.messageInput = page.locator('[data-qa="message"]');
-        this.submitButton = page.getByRole('button', { name: 'Submit' });
+        this.submitButton = page.locator("//input[@name='submit']");
         this.fileUploadInput = page.getByRole('button', { name: 'Choose File' });
         this.successMessage = page.locator('//div[@class="status alert alert-success"]');
         this.homeButton = page.getByRole('button', { name: 'Home' });
@@ -41,10 +41,13 @@ export default class ContactUsPage {
          */
     }
     async clicksubmitContactUsForm() {
-        await this.submitButton.click({force:true});
+    // console.log("Before click");
+    await this.submitButton.click({ noWaitAfter: true });
+    // console.log("After click");
+
     }
     async SuccessMessage() {
-        return await this.successMessage.textContent();
+        return this.successMessage.textContent({timeout:3000});
     }
  }
 
