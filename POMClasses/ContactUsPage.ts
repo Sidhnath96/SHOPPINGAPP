@@ -20,7 +20,7 @@ export default class ContactUsPage {
         this.emailInput = page.locator('[name="email"]');
         this.subjectInput = page.locator('[data-qa="subject"]');
         this.messageInput = page.locator('[data-qa="message"]');
-        this.submitButton = page.getByRole('button', { name: 'Submit' });
+        this.submitButton = page.locator("//input[@name='submit']");
         this.fileUploadInput = page.getByRole('button', { name: 'Choose File' });
         this.successMessage = page.locator('//div[@class="status alert alert-success"]');
         this.homeButton = page.getByRole('button', { name: 'Home' });
@@ -40,11 +40,14 @@ export default class ContactUsPage {
          * Use popupHandle class to handle the pop-up and accept it, then verify the success message on the page.
          */
     }
-    async submitContactUsForm() {
-        await this.submitButton.click({force:true});
+    async clicksubmitContactUsForm() {
+    // console.log("Before click");
+    await this.submitButton.click({ noWaitAfter: true });
+    // console.log("After click");
+
     }
-    async verifySuccessMessage() {
-        return await this.successMessage.textContent();
+    async SuccessMessage() {
+        return this.successMessage.textContent({timeout:3000});
     }
  }
 

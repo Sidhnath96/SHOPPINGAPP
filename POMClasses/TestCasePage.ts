@@ -11,9 +11,9 @@ export default class TestCasePage {
     }
  
 
-    async getTestCacesCount() {
+    async getTestCasesCount() {
         const testCasesCount = await this.listOfTestcases.count();
        return testCasesCount;
     }
 
-}
+}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
