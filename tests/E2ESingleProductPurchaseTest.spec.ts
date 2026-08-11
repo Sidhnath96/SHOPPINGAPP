@@ -43,6 +43,7 @@ test('End-to-End Single Product Purchase Flow', async ({page}) => {
     });
     //verify that product is displayed in cart page
     await test.step('verify product is displayed in cart page', async () => {
+       await page.waitForEvent('load');
        expect(await cartPage.getProductNameOnCart(productToSearch),"Product name does not match").toBe('Frozen Tops For Kids');
        expect(await cartPage.getProductPriceOnCart(productToSearch),"Product price does not match").toBe('Rs. 278');
     //    expect(await cartPage.getQuantity(productToSearch),"Product quantity does not match").toBe('1');

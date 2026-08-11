@@ -13,6 +13,6 @@ test('Verify test case page visibility and test cases count', async ({page}) => 
     await homePage.clickTestCasesLink();
     await expect(page,"Expected URL to be /test_cases").toHaveURL('/test_cases');
     // Verify the list of test cases is visible
-   expect(await testCasePage.getTestCacesCount(),"Expected 26 test cases").toEqual(26);
+   expect(await testCasePage.getTestCasesCount(),"Expected 26 test cases").toEqual(26);
 
 });

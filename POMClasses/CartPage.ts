@@ -48,7 +48,7 @@ export default class CartPage{
   }
 
   // 4. Get total price for that product row (price * qty)
-  async getProductTotalPriceOnCart(productName: string): Promise<string> {
+  async getProductTotalPriceOnCart(productName: string) : Promise<string>{
     const row =await this.getProductRowByName(productName);
     return (await row.locator('.cart_total_price').innerText()).trim();
   }
